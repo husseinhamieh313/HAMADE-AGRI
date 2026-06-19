@@ -1,6 +1,8 @@
 import React from 'react';
+import { useSettings } from '../../context/SettingsContext.jsx';
 
 export default function DashboardOverview({ products, users, orders }) {
+  const { currencySymbol } = useSettings();
   const revenue = orders.reduce((sum, o) => sum + Number(o.total), 0);
   const recentOrders = [...orders].slice(0, 5);
   const today = new Date().toLocaleDateString('en-US', {
@@ -35,7 +37,7 @@ export default function DashboardOverview({ products, users, orders }) {
         </div>
         <div className="stat-card">
           <div className="stat-icon">💰</div>
-          <div className="stat-value">${revenue.toFixed(2)}</div>
+          <div className="stat-value">{currencySymbol}{revenue.toFixed(2)}</div>
           <div className="stat-label">Total Revenue</div>
         </div>
       </div>
@@ -56,7 +58,7 @@ export default function DashboardOverview({ products, users, orders }) {
               <tr key={order.id}>
                 <td>#{order.id}</td>
                 <td>{new Date(order.created_at).toLocaleDateString()}</td>
-                <td>${Number(order.total).toFixed(2)}</td>
+                <td>{currencySymbol}{Number(order.total).toFixed(2)}</td>
                 <td><span className="badge badge-warning">{order.status}</span></td>
               </tr>
             ))}

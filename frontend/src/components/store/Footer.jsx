@@ -6,7 +6,7 @@ export default function Footer({ onScrollTo, onFilterCategory, onOpenLogin }) {
       <div className="container">
         <div className="footer-content">
           <div>
-            <div className="footer-brand">AgriCare</div>
+            <div className="footer-brand">Hamade Agri</div>
             <p style={{ opacity: 0.7, lineHeight: 1.8 }}>
               Cultivating excellence in agriculture since 2020. Your trusted partner for premium agricultural solutions.
             </p>
@@ -17,6 +17,7 @@ export default function Footer({ onScrollTo, onFilterCategory, onOpenLogin }) {
               <li><button className="linklike" onClick={() => onScrollTo('home')}>Home</button></li>
               <li><button className="linklike" onClick={() => onScrollTo('products')}>Products</button></li>
               <li><button className="linklike" onClick={() => onScrollTo('features')}>Features</button></li>
+              <li><button className="linklike" onClick={() => onScrollTo('testimonials')}>Reviews</button></li>
               <li><button className="linklike" onClick={() => onScrollTo('contact')}>Contact</button></li>
             </ul>
           </div>
@@ -40,7 +41,7 @@ export default function Footer({ onScrollTo, onFilterCategory, onOpenLogin }) {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2026 AgriCare Premium Agricultural Solutions. All rights reserved.</p>
+          <p>&copy; 2026 Hamade Agri Premium Agricultural Solutions. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -30,7 +30,7 @@ cp .env.example .env   # adjust DB_USER / DB_PASSWORD if your MySQL isn't the XA
 npm run dev             # or: npm start
 ```
 
-The API runs at `http://localhost:5006`. Health check: `GET /api/health`.
+The API runs at `http://localhost:5000`. Health check: `GET /api/health`.
 
 ## 3. Frontend setup
 

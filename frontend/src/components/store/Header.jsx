@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/CartContext.jsx';
+import { useSettings } from '../../context/SettingsContext.jsx';
 
 export default function Header({ onSearch, onOpenLogin, onToggleCart, onScrollTo }) {
   const { totalItems } = useCart();
+  const { settings } = useSettings();
   const [scrolled, setScrolled] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -18,18 +20,21 @@ export default function Header({ onSearch, onOpenLogin, onToggleCart, onScrollTo
     if (e.key === 'Enter') onSearch(searchTerm);
   }
 
+  const phone = settings?.contact_phone || '+1-800-AGRICARE';
+  const email = settings?.contact_email || 'support@agricare.com';
+
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-top">
         <div className="container">
-          <span>☎ +1-800-AGRICARE | ✉ support@agricare.com</span>
+          <span>☎ {phone} | ✉ {email}</span>
           <span>🚚 Free Shipping on Orders Over $100</span>
         </div>
       </div>
       <div className="container">
         <div className="header-content">
           <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); onScrollTo('home'); }}>
-            AgriCare
+            {settings?.site_name || 'AgriCare'}
           </a>
 
           <div className="search-container">
@@ -47,6 +52,7 @@ export default function Header({ onSearch, onOpenLogin, onToggleCart, onScrollTo
             <button className="linklike" onClick={() => onScrollTo('home')}>Home</button>
             <button className="linklike" onClick={() => onScrollTo('products')}>Products</button>
             <button className="linklike" onClick={() => onScrollTo('features')}>Features</button>
+            <button className="linklike" onClick={() => onScrollTo('testimonials')}>Reviews</button>
             <button className="linklike" onClick={() => onScrollTo('contact')}>Contact</button>
           </nav>
 

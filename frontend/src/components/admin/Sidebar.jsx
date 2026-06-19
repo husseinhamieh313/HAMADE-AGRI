@@ -1,16 +1,19 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const NAV_ITEMS = [
   { key: 'dashboard', icon: '📊', label: 'Dashboard' },
   { key: 'products', icon: '📦', label: 'Products' },
   { key: 'users', icon: '👥', label: 'Users' },
   { key: 'orders', icon: '🛒', label: 'Orders' },
+  { key: 'messages', icon: '✉️', label: 'Messages' },
+  { key: 'reviews', icon: '⭐', label: 'Product Reviews' },
+  { key: 'testimonials', icon: '💬', label: 'Website Reviews' },
   { key: 'settings', icon: '⚙️', label: 'Settings' },
 ];
 
-export default function Sidebar({ active, onChange }) {
+export default function Sidebar({ active, onChange, unreadMessages = 0 }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -34,6 +37,11 @@ export default function Sidebar({ active, onChange }) {
           <div style={{ fontSize: '0.813rem', opacity: 0.7 }}>Super Admin</div>
         </div>
       </div>
+
+      <Link to="/" className="view-store-btn">
+        🏬 View Store
+      </Link>
+
       <nav className="sidebar-nav">
         {NAV_ITEMS.map((item) => (
           <div
@@ -43,6 +51,9 @@ export default function Sidebar({ active, onChange }) {
           >
             <span className="nav-icon">{item.icon}</span>
             <span>{item.label}</span>
+            {item.key === 'messages' && unreadMessages > 0 && (
+              <span className="nav-badge">{unreadMessages}</span>
+            )}
           </div>
         ))}
       </nav>

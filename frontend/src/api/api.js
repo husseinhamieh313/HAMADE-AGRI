@@ -31,4 +31,22 @@ export const updateOrderStatus = (id, status) => api.put(`/orders/${id}`, { stat
 export const getSettings = () => api.get('/settings').then((r) => r.data);
 export const updateSettings = (data) => api.put('/settings', data).then((r) => r.data);
 
+// Messages (contact form submissions)
+export const getMessages = () => api.get('/messages').then((r) => r.data);
+export const createMessage = (data) => api.post('/messages', data).then((r) => r.data);
+export const updateMessageStatus = (id, status) => api.put(`/messages/${id}`, { status }).then((r) => r.data);
+export const deleteMessage = (id) => api.delete(`/messages/${id}`).then((r) => r.data);
+
+// Reviews (per-product)
+export const getReviews = (productId) => api.get('/reviews', { params: { productId } }).then((r) => r.data);
+export const getReviewsSummary = () => api.get('/reviews/summary').then((r) => r.data);
+export const getAllReviews = () => api.get('/reviews/all').then((r) => r.data);
+export const createReview = (data) => api.post('/reviews', data).then((r) => r.data);
+export const deleteReview = (id) => api.delete(`/reviews/${id}`).then((r) => r.data);
+
+// Testimonials (site-wide, not tied to a product)
+export const getTestimonials = () => api.get('/testimonials').then((r) => r.data);
+export const createTestimonial = (data) => api.post('/testimonials', data).then((r) => r.data);
+export const deleteTestimonial = (id) => api.delete(`/testimonials/${id}`).then((r) => r.data);
+
 export default api;

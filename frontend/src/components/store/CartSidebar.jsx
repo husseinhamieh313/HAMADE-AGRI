@@ -1,18 +1,20 @@
 import React from 'react';
 import { useCart } from '../../context/CartContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useSettings } from '../../context/SettingsContext.jsx';
 import * as api from '../../api/api.js';
 
 export default function CartSidebar({ active, onClose }) {
   const { cart, total, updateQuantity, removeFromCart, clearCart } = useCart();
   const { user } = useAuth();
+  const { currencySymbol } = useSettings();
 
   async function handleCheckout() {
     if (cart.length === 0) {
       alert('Your cart is empty!');
       return;
     }
-    if (!window.confirm(`Proceed to payment for $${total.toFixed(2)}?`)) return;
+    if (!window.confirm(`Proceed to payment for ${currencySymbol}${total.toFixed(2)}?`)) return;
 
     try {
       await api.createOrder({
@@ -46,7 +48,7 @@ export default function CartSidebar({ active, onClose }) {
                 <div className="cart-item-image">{item.icon || '🛒'}</div>
                 <div className="cart-item-info">
                   <div className="cart-item-name">{item.name}</div>
-                  <div className="cart-item-price">${Number(item.price).toFixed(2)}</div>
+                  <div className="cart-item-price">{currencySymbol}{Number(item.price).toFixed(2)}</div>
                   <div className="cart-item-quantity">
                     <button className="qty-btn" onClick={() => updateQuantity(item.id, -1)}>-</button>
                     <span>{item.quantity}</span>
@@ -67,7 +69,7 @@ export default function CartSidebar({ active, onClose }) {
         <div className="cart-footer">
           <div className="cart-total">
             <span>Total</span>
-            <span>${total.toFixed(2)}</span>
+            <span>{currencySymbol}{total.toFixed(2)}</span>
           </div>
           <button className="btn btn-primary" style={{ width: '100%', marginBottom: '0.75rem' }} onClick={handleCheckout}>
             Checkout Now

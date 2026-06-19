@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ProductCard from './ProductCard.jsx';
+import ProductDetailModal from './ProductDetailModal.jsx';
+import * as api from '../../api/api.js';
 
 export default function ProductsSection({ products, loading }) {
   const [toast, setToast] = useState('');
+  const [summary, setSummary] = useState({});
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const loadSummary = useCallback(() => {
+    api.getReviewsSummary().then(setSummary).catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    loadSummary();
+  }, [loadSummary]);
 
   function handleAdded(name) {
     setToast(`${name} added to cart!`);
@@ -25,13 +37,25 @@ export default function ProductsSection({ products, loading }) {
         ) : (
           <div className="products-grid">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} onAdded={handleAdded} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAdded={handleAdded}
+                summary={summary[product.id]}
+                onOpenDetail={setSelectedProduct}
+              />
             ))}
           </div>
         )}
       </div>
 
       {toast && <div className="toast">{toast}</div>}
+
+      <ProductDetailModal
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        onReviewed={loadSummary}
+      />
     </section>
   );
 }

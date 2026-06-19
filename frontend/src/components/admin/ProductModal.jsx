@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSettings } from '../../context/SettingsContext.jsx';
 
 const ICON_OPTIONS = [
   { value: '🌱', label: '🌱 Fertilizers' },
@@ -19,6 +20,7 @@ const EMPTY_FORM = {
 
 export default function ProductModal({ open, product, onClose, onSave }) {
   const [form, setForm] = useState(EMPTY_FORM);
+  const { currencySymbol } = useSettings();
 
   useEffect(() => {
     if (product) {
@@ -98,7 +100,7 @@ export default function ProductModal({ open, product, onClose, onSave }) {
 
           <div className="form-grid">
             <div className="form-group">
-              <label>Price ($)</label>
+              <label>Price ({currencySymbol})</label>
               <input type="number" step="0.01" value={form.price} onChange={(e) => update('price', e.target.value)} required />
             </div>
             <div className="form-group">

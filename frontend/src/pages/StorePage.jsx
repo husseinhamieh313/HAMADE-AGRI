@@ -5,6 +5,7 @@ import Hero from '../components/store/Hero.jsx';
 import CategorySection from '../components/store/CategorySection.jsx';
 import ProductsSection from '../components/store/ProductsSection.jsx';
 import FeaturesSection from '../components/store/FeaturesSection.jsx';
+import TestimonialsSection from '../components/store/TestimonialsSection.jsx';
 import ContactSection from '../components/store/ContactSection.jsx';
 import Footer from '../components/store/Footer.jsx';
 import CartSidebar from '../components/store/CartSidebar.jsx';
@@ -58,6 +59,7 @@ export default function StorePage() {
       <CategorySection onFilterCategory={filterCategory} />
       <ProductsSection products={products} loading={loading} />
       <FeaturesSection />
+      <TestimonialsSection />
       <ContactSection />
       <Footer onScrollTo={scrollTo} onFilterCategory={filterCategory} onOpenLogin={() => setLoginOpen(true)} />
 

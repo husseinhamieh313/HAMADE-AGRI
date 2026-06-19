@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import ProductModal from './ProductModal.jsx';
 import * as api from '../../api/api.js';
+import { useSettings } from '../../context/SettingsContext.jsx';
 
 export default function ProductsPanel({ products, onRefresh }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const { currencySymbol } = useSettings();
 
   function openAdd() {
     setEditingProduct(null);
@@ -76,7 +78,7 @@ export default function ProductsPanel({ products, onRefresh }) {
                 </div>
               </td>
               <td><span className="badge badge-success">{product.category}</span></td>
-              <td>${Number(product.price).toFixed(2)}</td>
+              <td>{currencySymbol}{Number(product.price).toFixed(2)}</td>
               <td style={{ maxWidth: 300, overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</td>
               <td>
                 <div className="action-buttons">
